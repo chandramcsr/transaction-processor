@@ -1,0 +1,11 @@
+LOAD,card1,l1,500
+LIMIT,card1,lim1,100
+AUTH,card1,t1,60
+AUTH,card1,t2,50
+CLEAR,card1,t1,60
+AUTH,card1,t3,40
+REVERSE,card1,t3,0
+AUTH,card1,t4,40
+AUTH,card1,t1,10
+LOAD,card2,l2,20
+AUTH,card2,t5,30

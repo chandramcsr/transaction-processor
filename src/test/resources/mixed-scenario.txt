@@ -1,0 +1,8 @@
+LOAD,card1,l1,100.00
+AUTH,card1,t1,30.00
+AUTH,card1,t2,80.00
+CLEAR,card1,t1,30.00
+LOAD,card2,l2,50
+AUTH,card2,t3,20.00
+REVERSE,card2,t3,0
+FOO,card2,t4,1.00

@@ -1,0 +1,31 @@
+# Gradle
+.gradle/
+build/
+
+# Java
+*.class
+hs_err_pid*.log
+replay_pid*.log
+
+# IntelliJ IDEA
+.idea/
+*.iml
+out/
+
+# VS Code / Eclipse (VS Code's Java extension uses Eclipse's project files)
+.vscode/
+bin/
+.classpath
+.project
+.settings/
+
+# OS
+.DS_Store
+Thumbs.db
+desktop.ini
+
+# Logs
+*.log
+
+# Generated test input (gradlew generateInput)
+big*.txt

@@ -1,0 +1,61 @@
+plugins {
+    id 'java'
+    id 'application'
+}
+
+group = 'com.highnote'
+version = '1.0.0'
+
+java {
+    toolchain {
+        languageVersion = JavaLanguageVersion.of(21)
+    }
+}
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    testImplementation platform('org.junit:junit-bom:5.10.2')
+    testImplementation 'org.junit.jupiter:junit-jupiter'
+    testImplementation 'org.assertj:assertj-core:3.25.3'
+    testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
+}
+
+application {
+    mainClass = 'com.highnote.processor.Main'
+}
+
+// `gradlew run --args="path/to/input.txt"` resolves relative paths from the project root
+tasks.named('run') {
+    workingDir = rootProject.projectDir
+}
+
+// `gradlew benchmark` runs the plain-Java throughput benchmark (not part of `test`)
+tasks.register('benchmark', JavaExec) {
+    group = 'verification'
+    description = 'Runs ProcessorBenchmark'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.highnote.processor.ProcessorBenchmark'
+    jvmArgs = ['-Xms2g', '-Xmx2g']
+}
+
+// `gradlew generateInput -Pout=big.txt -Plines=1000000` writes a large sample input file
+tasks.register('generateInput', JavaExec) {
+    group = 'application'
+    description = 'Writes a large sample input file'
+    classpath = sourceSets.test.runtimeClasspath
+    mainClass = 'com.highnote.processor.InputFileGenerator'
+    workingDir = rootProject.projectDir
+    args = [project.findProperty('out') ?: 'big.txt', project.findProperty('lines') ?: '1000000']
+}
+
+tasks.named('test') {
+    useJUnitPlatform()
+    testLogging {
+        events 'passed', 'skipped', 'failed'
+        showStandardStreams = true   // see System.out from the processor in the console
+        exceptionFormat = 'full'
+    }
+}
